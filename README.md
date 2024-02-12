@@ -1,7 +1,11 @@
 # Machine Learning News Classification
 
 This repository contains a machine learning project for classifying news articles into different categories. The project includes data preprocessing, feature extraction using various methods, and the application of different machine learning models.
-**this reposetery made with elham ghasemi , golshid ranjbaran and alireza parvaresh**
+**this reposetery made with**
+
+elham ghasemi 
+golshid ranjbaran
+alireza parvaresh
 ## Table of Contents
 
 - [Introduction](#introduction)
