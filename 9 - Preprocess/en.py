@@ -1,5 +1,6 @@
 """
     in the name of god
+        this is strong pre-process engilsh text 
 """
 
 import nltk
@@ -74,7 +75,8 @@ class PreProcess:
 
     def _normalize_numbers_and_units(self, tokens):
         """
-            pass
+            Units of measurement and numbers are used in a list of tokens. 
+            This will convert all units of measurement and numbers into a standard format.
         """
         normalized_tokens = []
         for token in tokens:
@@ -107,6 +109,13 @@ class PreProcess:
 
 
     def normalize_text(self, tokens):
+        """
+            The sequence of activities to convert a text into normal text:
+                1- shorten words
+                2- Removal of Arabs
+                3- Converting abbreviations to normal
+                4- will convert all units of measurement and numbers into a standard format
+        """
         tokens = self._case_normalization(tokens)
         tokens = self._remove_accents_diacritics(tokens)
         tokens = self._expand_contractions(tokens)
