@@ -8,7 +8,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
-from spellchecker import SpellChecker
+from autocorrect import Speller
 import re
 import contractions
 from word2number import w2n
@@ -19,12 +19,12 @@ class PreProcess:
         """
             Initialization of functions and objects used during work
         """
-        self.spell = SpellChecker()
+        self.spell = Speller(lang='en')
         self.lemmatizer = WordNetLemmatizer()
         self.stop_words = set(stopwords.words('english'))
 
 
-    def remove_special_characters(self, text):
+    def remove_special_characters(self, text : str) -> str : 
         """
             Here, special characters are removed from the text
             In the first step , links and site addresses are removed from the text
@@ -41,7 +41,14 @@ class PreProcess:
         return text
     
 
-    def tokenize_text(self, text):
+
+    def spell_check(self, text : str) -> str:
+        """
+            This function is used to correct the spelling of text (words).
+        """
+        return self.spell(text)    
+
+    def tokenize_text(self, text : str) -> list:
         """
             Convert a sentence into tokens
         """
@@ -50,13 +57,13 @@ class PreProcess:
     
 
 
-    def _case_normalization(self, tokens):
+    def _case_normalization(self, tokens : list) -> list:
         """
             Normalize words by converting them to lowercase letters
         """
         return [token.lower() for token in tokens]
 
-    def _remove_accents_diacritics(self, tokens):
+    def _remove_accents_diacritics(self, tokens : list) -> list:
         """
             A list of tokens (words) is used to remove letters with a specific combination (such as letters with Arabic or mixed symbols). 
             Specifically, it uses the unicodedata.normalize function with the NFD form, 
@@ -121,13 +128,8 @@ class PreProcess:
         tokens = self._expand_contractions(tokens)
         tokens = self._normalize_numbers_and_units(tokens)
         return tokens
-    
-    def spell_check(self, tokens):
-        """
-            This function is used to correct the spelling of tokens (words). Specifically, 
-            it uses a class or library that contains the correction function to find the correct spelling of each word in the token list and return it instead of the incorrect token.
-        """
-        return [self.spell.correction(token) for token in tokens]
+
+
     
 
 
@@ -141,11 +143,14 @@ class PreProcess:
     
 
 
-    def lemmatization(self,tokens):
+    def lemmatization(self, tokens : list) -> list:
         """
             This code function uses Lemmatization to convert each token to its base or root form. 
             Lemmatization is a process in natural language processing (NLP) that aims to convert words into their basic or root form, 
             taking into account the word's role in the sentence (such as noun, verb, adjective). 
             This helps to convert synonyms to a standard root or form.
+            then remove stopwords
         """
-        return [self.lemmatizer.lemmatize(token) for token in tokens]
+        tokens = [self.lemmatizer.lemmatize(token) for token in tokens] 
+        tokens = self.remove_stopwords(tokens)
+        return tokens
