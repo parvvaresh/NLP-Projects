@@ -54,7 +54,7 @@ class PreProcess:
         return [self.lemmatizer.lemmatize(token) for token in tokens]
     
     
-    def pipline(self, text : str) -> list:
+    def pipeline(self, text : str) -> list:
         text = self.remove_punctuations(text)
         text = self.remove_diacritics(text)
         text = self.normalize_persian(text)
