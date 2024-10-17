@@ -12,9 +12,10 @@ def get_details_models():
         get_nc(),
         get_knn(),
         get_dt(),
-        get_rf(),
         get_lr(),
         get_nb(),
         get_pr(),
-        get_svm()
+        get_svm(),
+        get_rf(),
+
     ]
