@@ -5,8 +5,6 @@ from sklearn.metrics import (
     accuracy_score,
     precision_score,
     f1_score,
-    confusion_matrix,
-    cohen_kappa_score,
     make_scorer
 )
 
@@ -14,9 +12,7 @@ import numpy as np
 import pandas as pd
 import time
 
-# Suppress all warnings
 warnings.filterwarnings("ignore")
-
 
 
 def classification_parameter_finder(model,
@@ -27,15 +23,12 @@ def classification_parameter_finder(model,
                                     y_test: np.array) -> pd.DataFrame:
     start = time.time()
 
-    kappa_scorer = make_scorer(cohen_kappa_score)
-
-
     grid = GridSearchCV(model,
-                            param_grid=parameters,
-                            refit=True,
-                            cv=5,
-                            n_jobs=-1,
-                            scoring=kappa_scorer)
+                        param_grid=parameters,
+                        refit=True,  
+                        cv=5,        
+                        n_jobs=-1,   
+                        scoring="accuracy")  
     grid.fit(X_train, y_train)
 
     y_train_pred = grid.predict(X_train)
@@ -47,13 +40,8 @@ def classification_parameter_finder(model,
     precision = precision_score(y_test, y_test_pred, average='weighted')
     recall = recall_score(y_test, y_test_pred, average='weighted')
     f1 = f1_score(y_test, y_test_pred, average='weighted')
-    kappa = cohen_kappa_score(y_test, y_test_pred)
-
-    conf_matrix = confusion_matrix(y_test, y_test_pred)
-    class_labels = np.unique(y_test)
 
     model_name = str(model).split('(')[0]
-
     end = time.time()
 
     results = pd.DataFrame({
@@ -64,8 +52,6 @@ def classification_parameter_finder(model,
         "precision": [precision],
         "recall": [recall],
         "f1_score": [f1],
-        "kappa": [kappa],
-        "confusion_matrix": [conf_matrix.ravel()],
         "runtime": [end - start],
         "best model": [grid.best_estimator_]
     })
