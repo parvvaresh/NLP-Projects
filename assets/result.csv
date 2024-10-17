@@ -1,0 +1,9 @@
+,model,best_params,train_accuracy,test_accuracy,precision,recall,f1_score,runtime,best model
+0,NearestCentroid,"{'metric': 'euclidean', 'shrink_threshold': None}",0.785625,0.7625,0.7812657365443288,0.7625,0.7532640030892349,6.952093601226807,NearestCentroid()
+0,KNeighborsClassifier,"{'metric': 'euclidean', 'n_neighbors': 5, 'weights': 'uniform'}",0.858125,0.7325,0.7371396784919623,0.7325,0.7331689218408237,7.969930410385132,KNeighborsClassifier(metric='euclidean')
+0,DecisionTreeClassifier,"{'criterion': 'gini', 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 10}",0.920625,0.7225,0.7252471777927961,0.7225,0.7231115520088403,13.386161804199219,DecisionTreeClassifier(min_samples_split=10)
+0,LogisticRegression,"{'C': 1, 'max_iter': 100, 'penalty': 'l2', 'solver': 'liblinear'}",0.833125,0.7775,0.777218524324741,0.7775,0.7765247374213535,135.21139883995056,"LogisticRegression(C=1, solver='liblinear')"
+0,GaussianNB,{'var_smoothing': 1e-05},0.791875,0.6425,0.672103146251753,0.6425,0.6384395150404027,0.43581199645996094,GaussianNB(var_smoothing=1e-05)
+0,Perceptron,"{'alpha': 0.0001, 'max_iter': 1000, 'penalty': 'l1'}",0.84375,0.7725,0.7728098443306739,0.7725,0.7708706291248986,3.462388515472412,Perceptron(penalty='l1')
+0,SVC,"{'C': 1, 'gamma': 1, 'kernel': 'rbf'}",0.855,0.7825,0.7820771052430547,0.7825,0.7820465045534917,21.870944261550903,"SVC(C=1, gamma=1)"
+0,RandomForestClassifier,"{'criterion': 'entropy', 'max_depth': None, 'min_samples_leaf': 2, 'min_samples_split': 2, 'n_estimators': 100}",0.878125,0.7625,0.7619512755688348,0.7625,0.7618354177374222,376.098135471344,"RandomForestClassifier(criterion='entropy', min_samples_leaf=2)"
