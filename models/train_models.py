@@ -8,8 +8,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.feature_selection import SelectKBest, chi2
 
-from parameter_finder import classification_parameter_finder
-from parameter.models import  get_details_models
+from .parameter_finder import classification_parameter_finder
+from .parameter.models import  get_details_models
 
 mapply.init(
     n_workers=-1,
