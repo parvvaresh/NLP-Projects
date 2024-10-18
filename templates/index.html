@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap RTL CSS (if needed and available in static folder) -->
+    <!-- <link href="{{ url_for('static', filename='bootstrap-rtl.css') }}" rel="stylesheet"> -->
+    <!-- Responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+    <!-- Page Title -->
+    <title>Snappfood</title>
+    <!-- Vazir Font -->
+    <link href="https://cdn.rawgit.com/rastikerdar/vazir-font/v27.0.1/dist/font-face.css" rel="stylesheet"
+        type="text/css" />
+    <!-- Link to your custom CSS file -->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"> <!-- Corrected CSS link -->
+
+</head>
+
+<body>
+    <div id="loader" class="loader"></div>
+    <div id="overlay"></div>
+    <div class="content-wrapper">
+        <h1 class="label-custom">تحلیل احساسات کامنت‌های اسنپ‌فود</h1>
+        <form action="/predict" method="post"> <!-- Corrected action route -->
+            <textarea class="text-area-custom" name="user_input_text" rows="4" cols="50"
+                placeholder="نظر خود را اینجا وارد کنید...">{{ user_input }}</textarea>
+            <br>
+            <input type="submit" class="submit-button-custom" value="تحلیل نظر">
+        </form>
+        {% if prediction_text %}
+        <h2 id="predictionText">پیش‌بینی احساس: {{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('form');
+            var loader = document.getElementById('loader');
+            var overlay = document.getElementById('overlay');
+
+            form.onsubmit = function () {
+                loader.style.display = 'block';
+                overlay.style.display = 'block';
+            };
+        });
+    </script>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.8/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
