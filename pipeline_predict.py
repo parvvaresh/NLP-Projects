@@ -1,27 +1,19 @@
-from PreProcess import PreProcess
-import pickle
-import warnings
-warnings.filterwarnings("ignore")
+from tensorflow.keras.preprocessing.text import tokenizer_from_json
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import tensorflow as tf
 
-with open('./final_models/svc_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+with open('./final_models/tokenizer.json', 'r', encoding='utf-8') as f:
+    tokenizer_json = f.read()
+tokenizer = tokenizer_from_json(tokenizer_json)
 
-with open('./final_models/tfidf_vectorizer.pkl', 'rb') as file:
-    tfidf_vectorizer = pickle.load(file)
+model = tf.keras.models.load_model('./final_models/lstm_model.h5')
 
-with open('./final_models/select_k_best_transformer.pkl', 'rb') as file:
-    select_k_best_transformer = pickle.load(file)
+def pipeline_predict(text: str) -> str:
+    sequences = tokenizer.texts_to_sequences([text])  
+    padded_sequences = pad_sequences(sequences, maxlen=100, padding='post')
+    prediction = model.predict(padded_sequences)
+    sentiment_score = prediction[0][0]
     
-    
-
-def pipeline_predict(text : str) -> str:
-    pre_process_model = PreProcess()
-    text_preproces = pre_process_model.pipeline(text)
-    text_preproces = [" ".join(tokens) for tokens in text_preproces]
-    
-    matrix = tfidf_vectorizer.transform(text_preproces)
-    matrix = select_k_best_transformer.transform(matrix).toarray()
-    lable = model.predict(matrix)[0]
-    print(lable)
+    print(f'Sentiment Score: {sentiment_score}')
+    lable = 'SAD' if sentiment_score > 0.5 else 'HAPPY'
     return lable
-    
