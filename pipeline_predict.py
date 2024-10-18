@@ -22,5 +22,6 @@ def pipeline_predict(text : str) -> str:
     matrix = tfidf_vectorizer.transform(text_preproces)
     matrix = select_k_best_transformer.transform(matrix).toarray()
     lable = model.predict(matrix)[0]
+    print(lable)
     return lable
     
