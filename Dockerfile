@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt ./
 COPY app.py ./
+COPY static ./
+COPY templates ./
 COPY final_models ./
 COPY pipline_predict.py ./
 
