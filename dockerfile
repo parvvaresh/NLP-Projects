@@ -1,10 +1,11 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
 COPY requirements.txt ./
 COPY app.py ./
 COPY final_models ./
+COPY pipline_predict.py ./
 
 RUN apt-get update && apt-get install -y \
     gcc \
